@@ -36,3 +36,14 @@ data['Commentary'] = data.apply(generate_commentary, axis=1)
 
 # Display the dataset with commentary
 print(data[['Fruit', 'Market1_Before', 'Market1_After', 'Market2_Before', 'Market2_After', 'Commentary']])
+
+output_file_path = 'output_file.txt'
+
+# Open the output file for writing
+with open(output_file_path, 'w') as file:
+    # Iterate through the 'Commentary' column and write each commentary to the file
+    for commentary in data['Commentary']:
+        file.write(commentary + '\n')
+
+# Print a message to confirm that the data has been saved
+print("Commentary data has been saved to '{}'.".format(output_file_path))
