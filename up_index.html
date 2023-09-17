@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Feed Identifier</th>
+                <th>Mail Send Date</th>
+                <th>SLA Breached</th> <!-- New column -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, row in data.iterrows() %}
+            <tr>
+                <td>{{ row['feed_identifier'] }}</td>
+                <td>{{ row['mail_send_date'] }}</td>
+                <td>{{ row['SLA_Breached'] }}</td> <!-- Display SLA Breached value -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Your page content goes here -->
+
+    <script src="script.js"></script> <!-- Link to your JavaScript file, if needed -->
+</body>
+</html>
