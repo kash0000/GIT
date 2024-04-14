@@ -20,11 +20,13 @@ def upload_file():
         # Process the uploaded file
         data = pd.read_excel(file_path)
         
-        # Process data here
-        
-        # Save processed data to a new file
-        processed_file_path = os.path.join(UPLOAD_FOLDER, 'processed_data.xlsx')
-        data.to_excel(processed_file_path, index=False)
+        # Select only 'source_name' and 'project_name' columns
+        processed_data = data[['source_name', 'project_name']]
+
+        # Save processed data to a new file with original filename and suffix '_processed'
+        processed_file_name = os.path.splitext(file.filename)[0] + '_processed.xlsx'
+        processed_file_path = os.path.join(UPLOAD_FOLDER, processed_file_name)
+        processed_data.to_excel(processed_file_path, index=False)
         
         return jsonify({'message': 'File uploaded and processed successfully', 'file_path': processed_file_path})
     else:
@@ -32,3 +34,4 @@ def upload_file():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
