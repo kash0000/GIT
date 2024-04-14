@@ -35,3 +35,16 @@ def upload_file():
 if __name__ == '__main__':
     app.run(debug=True)
 
+
+=====================
+6. Load Data into Database
+Use a database library like SQLAlchemy or psycopg2 to load data from the processed file into your database. Here's a basic example using SQLAlchemy:
+
+from sqlalchemy import create_engine
+import pandas as pd
+
+engine = create_engine('your-database-connection-string')
+
+data = pd.read_excel('processed_data.xlsx')
+data.to_sql('your_table_name', engine, if_exists='append', index=False)
+
