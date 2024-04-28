@@ -78,9 +78,11 @@ FILE UPLOAD's
     <input type="file" id="fileInput" (change)="onFileSelected($event)" />
   </label>
   <div class="loading-bar" [hidden]="!uploading">
-    <!-- Loading bar content -->
+    <div class="loading-bar-inner" [style.width]="uploadProgress + '%'"></div>
   </div>
+  <div class="upload-message" [hidden]="!uploadComplete">File Uploaded</div>
 </div>
+
 ===================================================================
 ++css++
 
@@ -110,29 +112,46 @@ FILE UPLOAD's
 }
 
 .loading-bar-inner {
-  width: 0;
   height: 100%;
   background-color: #007bff;
   border-radius: 5px;
   transition: width 0.3s ease-in-out;
 }
 
+.upload-message {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+
 ===========================================
 ++ ts++
 export class FileUploadPageComponent {
   uploading: boolean = false;
+  uploadProgress: number = 0;
+  uploadComplete: boolean = false;
 
   onFileSelected(event) {
     this.uploading = true;
-    // Perform file upload logic here
+    this.uploadProgress = 0;
+    this.uploadComplete = false;
 
-    // Simulating file upload completion after 3 seconds (replace with actual upload logic)
-    setTimeout(() => {
-      // Set uploading back to false after upload is complete
-      this.uploading = false;
-    }, 3000);
+    // Simulating file upload progress and completion (replace with actual upload logic)
+    const interval = setInterval(() => {
+      this.uploadProgress += 10;
+      if (this.uploadProgress >= 100) {
+        clearInterval(interval);
+        this.uploadComplete = true;
+        setTimeout(() => {
+          this.uploading = false;
+          this.uploadProgress = 0;
+          this.uploadComplete = false;
+        }, 2000); // Hide message after 2 seconds
+      }
+    }, 500); // Simulate progress every 500 milliseconds
   }
 }
+
 
 
 
