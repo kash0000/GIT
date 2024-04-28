@@ -67,3 +67,66 @@ def upload_file():
         return jsonify({'message': 'File uploaded and processed successfully', 'file_path': processed_file_path})
     else:
         return jsonify({'error': 'No file uploaded'})
+
+==================================================================
+FILE UPLOAD's
+++html++
+
+<div class="upload-container">
+  <label for="fileInput" class="custom-file-upload">
+    Choose File
+    <input type="file" id="fileInput" (change)="onFileSelected($event)" />
+  </label>
+  <div class="loading-bar" [hidden]="!uploading">
+    <!-- Loading bar content -->
+  </div>
+</div>
+===================================================================
+++css++
+
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.loading-bar {
+  margin-top: 20px;
+  width: 200px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+.loading-bar-inner {
+  width: 0;
+  height: 100%;
+  background-color: #007bff;
+  border-radius: 5px;
+  transition: width 0.3s ease-in-out;
+}
+
+===========================================
+++ ts++
+export class FileUploadPageComponent {
+  uploading: boolean = false;
+
+  onFileSelected(event) {
+    this.uploading = true;
+    // Perform file upload logic here
+    // Once upload is complete, set uploading to false
+  }
+}
+
+
