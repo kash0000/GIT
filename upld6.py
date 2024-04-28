@@ -125,8 +125,14 @@ export class FileUploadPageComponent {
   onFileSelected(event) {
     this.uploading = true;
     // Perform file upload logic here
-    // Once upload is complete, set uploading to false
+
+    // Simulating file upload completion after 3 seconds (replace with actual upload logic)
+    setTimeout(() => {
+      // Set uploading back to false after upload is complete
+      this.uploading = false;
+    }, 3000);
   }
 }
+
 
 
