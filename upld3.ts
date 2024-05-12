@@ -71,10 +71,38 @@ if __name__ == '__main__':
 
 #python1
 
-  from sqlalchemy import create_engine
-import pandas as pd
+//   from sqlalchemy import create_engine
+// import pandas as pd
 
-engine = create_engine('your-database-connection-string')
+// engine = create_engine('your-database-connection-string')
 
-data = pd.read_excel('processed_data.xlsx')
-data.to_sql('your_table_name', engine, if_exists='append', index=False)
+// data = pd.read_excel('processed_data.xlsx')
+// data.to_sql('your_table_name', engine, if_exists='append', index=False)
+
+
+  import sqlite3
+
+def import_processed_file_into_db(file_path):
+    # Connect to the database
+    conn = sqlite3.connect('backend/tcoDb.db')
+    cursor = conn.cursor()
+
+    try:
+        # Delete existing records for the particular 'MonthEnd' if needed
+        # Execute appropriate DELETE command here if required
+
+        # Import processed data from the file into the database
+        query = f"DELETE FROM TCO_MASTER WHERE MonthEnd = (SELECT MonthEnd FROM {file_path})"
+        cursor.execute(query)
+        query = f".mode csv\n.import {file_path} TCO_MASTER"
+        cursor.execute(query)
+
+        # Commit the changes
+        conn.commit()
+        print("Data imported successfully into TCO_MASTER table.")
+    except Exception as e:
+        print("Error importing data into TCO_MASTER table:", e)
+    finally:
+        # Close the connection
+        conn.close()
+
