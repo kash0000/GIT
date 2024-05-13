@@ -80,14 +80,45 @@ if __name__ == '__main__':
 // data.to_sql('your_table_name', engine, if_exists='append', index=False)
 
 
-  import sqlite3
+//   import sqlite3
 
-def import_processed_file_into_db(file_path):
-    # Connect to the database
-    conn = sqlite3.connect('backend/tcoDb.db')
-    cursor = conn.cursor()
+// def import_processed_file_into_db(file_path):
+//     # Connect to the database
+//     conn = sqlite3.connect('backend/tcoDb.db')
+//     cursor = conn.cursor()
 
+//     try:
+//         # Delete existing records for the particular 'MonthEnd' if needed
+//         # Execute appropriate DELETE command here if required
+
+//         # Import processed data from the file into the database
+//         query = f"DELETE FROM TCO_MASTER WHERE MonthEnd = (SELECT MonthEnd FROM {file_path})"
+//         cursor.execute(query)
+//         query = f".mode csv\n.import {file_path} TCO_MASTER"
+//         cursor.execute(query)
+
+//         # Commit the changes
+//         conn.commit()
+//         print("Data imported successfully into TCO_MASTER table.")
+//     except Exception as e:
+//         print("Error importing data into TCO_MASTER table:", e)
+//     finally:
+//         # Close the connection
+//         conn.close()
+
+
+
+import os
+
+def import_processed_file_into_db():
+    file_path = r'C:\users\xyz\documents\processed_data.xlsx'
+
+    # Connect to the database and execute the import command
     try:
+        # Connect to the database
+        conn = sqlite3.connect('backend/tcoDb.db')
+        cursor = conn.cursor()
+
         # Delete existing records for the particular 'MonthEnd' if needed
         # Execute appropriate DELETE command here if required
 
@@ -105,4 +136,8 @@ def import_processed_file_into_db(file_path):
     finally:
         # Close the connection
         conn.close()
+
+# Call the function to import the processed file into the database
+import_processed_file_into_db()
+
 
