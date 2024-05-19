@@ -40,3 +40,20 @@ def import_processed_file_into_db():
 
 # Example usage: calling the function directly
 import_processed_file_into_db()
+
+=================================================================================================================
+
+def clear_uploads_folder(folder):
+    # Iterate over all the filenames in the specified folder
+    for filename in os.listdir(folder):
+        # Construct the full path of the file
+        file_path = os.path.join(folder, filename)
+        try:
+            # Check if the current path is a file (and not a directory)
+            if os.path.isfile(file_path):
+                # Delete the file
+                os.unlink(file_path)
+        except Exception as e:
+            # Print an error message if there is an issue deleting the file
+            print(f"Error deleting file {file_path}: {e}")
+
